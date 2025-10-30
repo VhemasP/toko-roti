@@ -12,6 +12,7 @@ class Admin extends Authenticatable // <-- Ganti ini
 
     protected $table = 'admin'; // <-- Tambahkan ini
 
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *

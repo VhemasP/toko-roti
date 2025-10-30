@@ -3,13 +3,6 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
-/**
- * Paksa PHP Menampilkan Error (Untuk Debugging)
- * Ini akan kita gunakan untuk menemukan error selanjutnya.
- */
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...

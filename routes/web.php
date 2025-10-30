@@ -1,32 +1,30 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController; // <-- Pastikan ini ada
-use Illuminate\Support\Facades\Auth;     // <-- Pastikan ini ada
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\ProductController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
 */
 
 // --- ROUTE AUTENTIKASI ---
-
-// Jadikan halaman login sebagai halaman utama
-Route::get('/', [AuthController::class, 'showLoginForm'])->name('login.show'); // <-- PASTIKAN INI TIDAK DIKOMENTARI
+Route::get('/', [AuthController::class, 'showLoginForm'])->name('login.show');
 Route::post('/', [AuthController::class, 'login'])->name('login.post');
-
-// Route untuk Register Customer
 Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register.show');
 Route::post('register', [AuthController::class, 'register'])->name('register.post');
-
-// Route untuk Logout (gunakan method POST untuk keamanan)
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 
-// --- Halaman Dashboard (Perlu Login) ---
-
-// Group untuk Customer
+// --- Halaman Customer (Perlu Login Customer) ---
 Route::middleware(['auth:customer'])->group(function () {
     Route::get('/dashboard-customer', function () {
         $nama = Auth::guard('customer')->user()->nama;
@@ -34,10 +32,12 @@ Route::middleware(['auth:customer'])->group(function () {
     })->name('customer.dashboard');
 });
 
-// Group untuk Admin
-Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/dashboard-admin', function () {
-        $username = Auth::guard('admin')->user()->username;
-        return "<h1>Halo Admin, " . $username . "</h1> <form action='/logout' method='post'>@csrf<button type='submit'>Logout</button></form>";
-    })->name('admin.dashboard');
+// --- Halaman Admin (Perlu Login Admin) ---
+Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(function () {
+
+    Route::get('/dashboard', function () {
+        return redirect()->route('admin.products.index');
+    })->name('dashboard'); 
+
+    Route::resource('products', ProductController::class);
 });

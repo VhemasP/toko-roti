@@ -14,19 +14,18 @@ class AuthController extends Controller
 
     public function showLoginForm()
     {
-        return view('auth.login'); // Nanti kita buat file ini
+        return view('auth.login'); 
     }
 
     public function showRegisterForm()
     {
-        return view('auth.register'); // Nanti kita buat file ini
+        return view('auth.register'); 
     }
 
     // --- Proses Register Customer ---
 
     public function register(Request $request)
     {
-        // Validasi input
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:100',
             'email' => 'required|string|email|max:100|unique:customer,email',
@@ -39,7 +38,6 @@ class AuthController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Membuat Kode Customer otomatis (contoh: C0006)
         $lastCustomer = Customer::orderBy('kode_customer', 'desc')->first();
         $newKode = 'C0001';
         if ($lastCustomer) {
@@ -47,20 +45,18 @@ class AuthController extends Controller
             $newKode = 'C' . str_pad((int)substr($lastKode, 1) + 1, 4, '0', STR_PAD_LEFT);
         }
 
-        // Buat customer baru
         $customer = Customer::create([
             'kode_customer' => $newKode,
             'nama' => $request->nama,
             'email' => $request->email,
             'username' => $request->username,
-            'password' => Hash::make($request->password), // Password di-hash
+            'password' => Hash::make($request->password),
             'telp' => $request->telp,
         ]);
 
-        // Langsung login-kan customer
         Auth::guard('customer')->login($customer);
 
-        return redirect('/dashboard-customer'); // Arahkan ke dashboard customer
+        return redirect()->route('customer.dashboard');
     }
 
     // --- Proses Login (Bisa Admin / Customer) ---
@@ -78,17 +74,18 @@ class AuthController extends Controller
         // Penting: Di tabel admin, nama kolomnya 'username'
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard-admin'); // Arahkan ke dashboard admin
+
+            return redirect()->intended(route('admin.dashboard'));
         }
 
         // Jika GAGAL, coba login sebagai CUSTOMER
         // Penting: Di tabel customer, nama kolomnya juga 'username'
         if (Auth::guard('customer')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard-customer'); // Arahkan ke dashboard customer
+
+            return redirect()->intended(route('customer.dashboard'));
         }
 
-        // Jika GAGAL semua, kembali ke login
         return back()->withErrors([
             'username' => 'Username atau password salah.',
         ])->onlyInput('username');
@@ -98,7 +95,6 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Cek guard mana yang sedang aktif dan logout
         if (Auth::guard('admin')->check()) {
             Auth::guard('admin')->logout();
         } elseif (Auth::guard('customer')->check()) {
@@ -108,6 +104,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/'); // Arahkan ke halaman utama
+        return redirect('/');
     }
 }
