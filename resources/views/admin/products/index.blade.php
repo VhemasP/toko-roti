@@ -33,7 +33,7 @@
                     <td>{{ $product->kode_produk }}</td>
                     <td>
                         @if($product->image)
-<img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->nama }}" width="100">
+                        <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->nama }}" width="100">
                         @else
                             <span>No Image</span>
                         @endif
