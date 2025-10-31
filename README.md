@@ -23,12 +23,5 @@
 
 ----
 
-<h2>This project exists thanks to all the people who contribute.</h2>
-
-<a href="https://github.com/Farouq-beginner/TokoLaptop/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Farouq-beginner/TokoLaptop" />
-</a>
-
----
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
