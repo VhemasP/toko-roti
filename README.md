@@ -13,13 +13,22 @@
 
 ----
 
-##  Contributors
+## Contributors
 |NO| NAMA | NIM |
 |:-:|--------|--------|
 | 1 | [**Vhemas Dwi Agung Prasetyo**](https://github.com/VhemasP) | 24111814047 |
 | 2 | [**Mirza Azmina**](https://github.com/VhemasP) | 24111814058 |
 | 3 | [**Faiz Ahmad Dien Al-Ghifary**](https://github.com/Paizzy) | 24111814014 |
 
+## Deskripsi Project
+Toko Roti BakeryNesa adalah aplikasi berbasis web yang dibuat menggunakan framework Laravel, bertujuan untuk membantu pengelolaan data toko roti seperti produk, stok, dan transaksi penjualan secara digital.
+
+## Fitur Utama
+- Login dan Logout Admin  
+- CRUD (Create, Read, Update, Delete) Data Roti  
+- Upload Gambar Produk  
+- Dashboard Admin  
+- Manajemen Database  
 
 ----
 
