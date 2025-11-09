@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\ProductController;
@@ -35,9 +36,17 @@ Route::middleware(['auth:customer'])->group(function () {
 // --- Halaman Admin (Perlu Login Admin) ---
 Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(function () {
 
+    // Rute Dashboard
     Route::get('/dashboard', function () {
         return redirect()->route('admin.products.index');
-    })->name('dashboard'); 
+    })->name('dashboard');
 
+    // Rute CRUD Produk (Sudah ada)
     Route::resource('products', ProductController::class);
+
+    // --- TAMBAHKAN RUTE BARU INI ---
+    // Rute untuk Manajemen Order
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+
+    // (Nanti kita tambahkan rute untuk Statistik dan Customer di sini)
 });
