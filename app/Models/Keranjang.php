@@ -9,8 +9,10 @@ class Keranjang extends Model
 {
     use HasFactory;
 
-    protected $table = 'keranjang';
-    protected $primaryKey = 'id_keranjang'; // Sesuai migrasi
+    protected $table = 'keranjang'; 
+    protected $primaryKey = 'id_keranjang';
+
+    public $timestamps = false;
 
     protected $fillable = [
         'kode_customer',
@@ -19,8 +21,7 @@ class Keranjang extends Model
         'qty',
         'harga',
     ];
-    
-    // Relasi ke Produk (Opsional, untuk mempermudah ambil gambar nanti)
+
     public function produk()
     {
         return $this->belongsTo(Produk::class, 'kode_produk', 'kode_produk');

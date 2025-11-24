@@ -3,18 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model; // Gunakan ini dulu. Nanti jika pakai Auth, ganti ke Authenticatable
+use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
     use HasFactory;
 
-    protected $table = 'customer';
+    protected $table = 'customer'; // Nama tabel lama
     
-    // Konfigurasi Primary Key String (C0001, dst)
     protected $primaryKey = 'kode_customer';
-    public $incrementing = false;
+    public $incrementing = false; // Karena ID bukan auto-increment integer
     protected $keyType = 'string';
+
+    // TAMBAHKAN BARIS INI (Matikan timestamps otomatis)
+    public $timestamps = false; 
 
     protected $fillable = [
         'kode_customer',

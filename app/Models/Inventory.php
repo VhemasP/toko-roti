@@ -11,10 +11,11 @@ class Inventory extends Model
 
     protected $table = 'inventory';
     
-    // Konfigurasi Primary Key String (M0001, dst)
     protected $primaryKey = 'kode_bk';
     public $incrementing = false;
     protected $keyType = 'string';
+
+     public $timestamps = false;
 
     protected $fillable = [
         'kode_bk',

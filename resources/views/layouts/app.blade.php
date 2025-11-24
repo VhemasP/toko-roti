@@ -44,7 +44,12 @@
 					<li><a href="#">About</a></li>
                     
                     @if(Session::has('kode_customer'))
-                        <li><a href="{{ route('keranjang.index') }}"><i class="glyphicon glyphicon-shopping-cart"></i> <b>[ <span id="keranjang_count">0</span> ]</b></a></li>
+                        <li>
+    					<a href="{{ route('keranjang.index') }}">
+        					<i class="glyphicon glyphicon-shopping-cart"></i> 
+        					<b>[ {{ $totalKeranjang ?? 0 }} ]</b>
+    					</a>
+						</li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i> {{ Session::get('nama') }} <span class="caret"></span></a>
                             <ul class="dropdown-menu">

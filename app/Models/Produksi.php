@@ -10,7 +10,8 @@ class Produksi extends Model
     use HasFactory;
 
     protected $table = 'produksi';
-    protected $primaryKey = 'id_order'; // Sesuai migrasi
+    protected $primaryKey = 'id_order';
+    public $timestamps = false;
 
     protected $fillable = [
         'invoice',

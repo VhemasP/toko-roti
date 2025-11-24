@@ -10,6 +10,9 @@ class BomProduk extends Model
     use HasFactory;
 
     protected $table = 'bom_produk';
+    
+    public $timestamps = false;
+
 
     protected $fillable = [
         'kode_bom',

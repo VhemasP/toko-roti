@@ -10,14 +10,14 @@ class Admin extends Model
     use HasFactory;
 
     protected $table = 'admin';
-    // ID standar (integer auto increment), jadi tidak perlu konfigurasi khusus
+
+    public $timestamps = false;
     
     protected $fillable = [
         'username',
         'password',
     ];
     
-    // Sembunyikan password agar tidak ikut tertarik saat query JSON
     protected $hidden = [
         'password',
     ];

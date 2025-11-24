@@ -46,19 +46,19 @@ class CustomerAuthController extends Controller
     }
 
     // Proses Register (proses/register.php)
-    public function register(Request $request)
+public function register(Request $request)
     {
         // Validasi
         $request->validate([
             'nama' => 'required',
-            'email' => 'required|email|unique:customers,email',
-            'username' => 'required|unique:customers,username',
-            'password' => 'required|confirmed', // butuh input password_confirmation di view
+            // Perbaikan: Ubah 'customers' jadi 'customer'
+            'email' => 'required|email|unique:customer,email',
+            'username' => 'required|unique:customer,username',
+            'password' => 'required|confirmed', 
             'telp' => 'required',
         ]);
 
-        // Generate Kode Customer (C000X) - Sederhana
-        // Logic asli Anda mungkin berbeda, ini contoh auto-generate:
+        // Generate Kode Customer (C000X)
         $lastCustomer = Customer::orderBy('kode_customer', 'desc')->first();
         $urutan = $lastCustomer ? (int)substr($lastCustomer->kode_customer, 1) + 1 : 1;
         $kode_baru = 'C' . sprintf("%04s", $urutan);
@@ -68,7 +68,7 @@ class CustomerAuthController extends Controller
             'nama' => $request->nama,
             'email' => $request->email,
             'username' => $request->username,
-            'password' => Hash::make($request->password), // Enkripsi password
+            'password' => Hash::make($request->password),
             'telp' => $request->telp,
         ]);
 
