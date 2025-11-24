@@ -47,7 +47,7 @@
 				<td colspan="4" align="right"><b>Total Bayar</b></td>
 				<td><b>Rp.{{ number_format($total_bayar) }}</b></td>
 				<td>
-                    <a href="#" class="btn btn-success">Checkout</a>
+                    <a href="{{ route('checkout') }}" class="btn btn-success">Checkout</a>
                 </td>
 			</tr>
             @endif

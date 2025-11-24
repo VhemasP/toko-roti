@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\CustomerAuthController;
+use App\Http\Controllers\CheckoutController;
 
 // Arahkan '/' ke HomeController index
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -41,6 +42,8 @@ Route::group(['middleware' => 'web'], function () { // Nanti ganti 'auth' jika s
     // Hapus item Keranjang
     Route::delete('/keranjang/hapus/{id_keranjang}', [KeranjangController::class, 'destroy'])->name('keranjang.delete');
 
-    // (Opsional) Checkout nanti bisa ditambahkan disini
-    // Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.process');
+    Route::get('/selesai/{invoice}', [CheckoutController::class, 'success'])->name('checkout.success');
+
 });
