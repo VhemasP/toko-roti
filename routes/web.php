@@ -1,49 +1,77 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+
+// Import Semua Controller
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminDashboardController;
 
-// Arahkan '/' ke HomeController index
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
+
+// ==========================================================
+// 1. BAGIAN PUBLIK & CUSTOMER
+// ==========================================================
+
+// Halaman Utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// 2. Detail Produk (detail_produk.php)
-// URL akan menjadi: /detail/P0001
+// Detail Produk
 Route::get('/detail/{kode_produk}', [ProdukController::class, 'show'])->name('produk.detail');
 
-// 3. Authentication (Login & Register Customer)
+// --- Autentikasi Customer (Guest) ---
 Route::middleware('guest')->group(function () {
-    // Login (user_login.php)
+    // Login
     Route::get('/login', [CustomerAuthController::class, 'showLoginForm'])->name('login.form');
     Route::post('/login', [CustomerAuthController::class, 'login'])->name('login');
 
-    // Register (register.php)
+    // Register
     Route::get('/register', [CustomerAuthController::class, 'showRegisterForm'])->name('register.form');
     Route::post('/register', [CustomerAuthController::class, 'register'])->name('register');
 });
 
-// Logout (proses/logout.php)
+// Logout Customer
 Route::post('/logout', [CustomerAuthController::class, 'logout'])->name('logout');
 
 
-// 4. Fitur yang Butuh Login (Keranjang & Checkout)
-// Kita bungkus dengan middleware 'auth' (atau cek session manual jika Anda belum setup Guard)
-Route::group(['middleware' => 'web'], function () { // Nanti ganti 'auth' jika sistem login sudah fix
+// --- Fitur Belanja (Butuh Login) ---
+// Kita gunakan grup middleware 'web' standar
+Route::group(['middleware' => 'web'], function () {
     
-    // Halaman Keranjang (keranjang.php)
+    // Keranjang Belanja
     Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
-    
-    // Tambah ke Keranjang (proses/add.php)
     Route::post('/keranjang/add', [KeranjangController::class, 'store'])->name('keranjang.add');
-    
-    // Hapus item Keranjang
     Route::delete('/keranjang/hapus/{id_keranjang}', [KeranjangController::class, 'destroy'])->name('keranjang.delete');
 
+    // Checkout
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.process');
+    
+    // Halaman Sukses
     Route::get('/selesai/{invoice}', [CheckoutController::class, 'success'])->name('checkout.success');
+});
 
+// ==========================================================
+// 2. BAGIAN ADMIN
+// ==========================================================
+Route::prefix('admin')->group(function () {
+    
+    // Login & Logout (Tanpa Middleware)
+    Route::get('/', [AdminAuthController::class, 'showLogin'])->name('admin.login');
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
+    Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
+    // Halaman Dashboard (Pakai Middleware 'admin.auth')
+    Route::middleware('admin.auth')->group(function () {
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    });
 });
