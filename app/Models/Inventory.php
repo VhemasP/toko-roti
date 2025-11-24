@@ -5,22 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Produk extends Model
+class Inventory extends Model
 {
     use HasFactory;
 
-    protected $table = 'produk';
+    protected $table = 'inventory';
     
-    // Konfigurasi Primary Key String (P0001, dst)
-    protected $primaryKey = 'kode_produk';
+    // Konfigurasi Primary Key String (M0001, dst)
+    protected $primaryKey = 'kode_bk';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'kode_produk',
+        'kode_bk',
         'nama',
-        'image',
-        'deskripsi',
+        'qty',
+        'satuan',
         'harga',
+        'tanggal',
     ];
 }

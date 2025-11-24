@@ -3,23 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable; // <-- Ganti ini
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model; // Gunakan ini dulu. Nanti jika pakai Auth, ganti ke Authenticatable
 
-class Customer extends Authenticatable  // <-- Ganti ini
+class Customer extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
 
-    protected $table = 'customer'; // <-- Tambahkan ini
-    protected $primaryKey = 'kode_customer'; // <-- Tambahkan ini
-    public $incrementing = false; // <-- Tambahkan ini
-    protected $keyType = 'string'; // <-- Tambahkan ini
+    protected $table = 'customer';
+    
+    // Konfigurasi Primary Key String (C0001, dst)
+    protected $primaryKey = 'kode_customer';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'kode_customer',
         'nama',
@@ -28,12 +24,7 @@ class Customer extends Authenticatable  // <-- Ganti ini
         'password',
         'telp',
     ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+    
     protected $hidden = [
         'password',
     ];

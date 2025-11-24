@@ -1,60 +1,46 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\PublicController; // <-- Tambahkan ini
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\KeranjangController;
+use App\Http\Controllers\CustomerAuthController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// Arahkan '/' ke HomeController index
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// --- HALAMAN PUBLIK (Bisa diakses siapa saja) ---
-Route::get('/', [PublicController::class, 'index'])->name('home');
-Route::get('/about', [PublicController::class, 'about'])->name('about');
+// 2. Detail Produk (detail_produk.php)
+// URL akan menjadi: /detail/P0001
+Route::get('/detail/{kode_produk}', [ProdukController::class, 'show'])->name('produk.detail');
 
+// 3. Authentication (Login & Register Customer)
+Route::middleware('guest')->group(function () {
+    // Login (user_login.php)
+    Route::get('/login', [CustomerAuthController::class, 'showLoginForm'])->name('login.form');
+    Route::post('/login', [CustomerAuthController::class, 'login'])->name('login');
 
-// --- ROUTE AUTENTIKASI ---
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.show'); // Ubah ke /login
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register.show');
-Route::post('register', [AuthController::class, 'register'])->name('register.post');
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-
-
-// --- HALAMAN CUSTOMER (Perlu Login Customer) ---
-Route::middleware(['auth:customer'])->group(function () {
-    Route::get('/dashboard-customer', function () {
-        $nama = Auth::guard('customer')->user()->nama;
-        return "<h1>Halo Customer, " . $nama . "</h1> <form action='/logout' method='post'>@csrf<button type='submit'>Logout</button></form>";
-    })->name('customer.dashboard');
+    // Register (register.php)
+    Route::get('/register', [CustomerAuthController::class, 'showRegisterForm'])->name('register.form');
+    Route::post('/register', [CustomerAuthController::class, 'register'])->name('register');
 });
 
+// Logout (proses/logout.php)
+Route::post('/logout', [CustomerAuthController::class, 'logout'])->name('logout');
 
-// --- HALAMAN ADMIN (Perlu Login Admin) ---
-Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(function () {
+
+// 4. Fitur yang Butuh Login (Keranjang & Checkout)
+// Kita bungkus dengan middleware 'auth' (atau cek session manual jika Anda belum setup Guard)
+Route::group(['middleware' => 'web'], function () { // Nanti ganti 'auth' jika sistem login sudah fix
     
-    // Rute Dashboard (Redirect ke produk)
-    Route::get('/dashboard', function () {
-        return redirect()->route('admin.products.index');
-    })->name('dashboard');
+    // Halaman Keranjang (keranjang.php)
+    Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
+    
+    // Tambah ke Keranjang (proses/add.php)
+    Route::post('/keranjang/add', [KeranjangController::class, 'store'])->name('keranjang.add');
+    
+    // Hapus item Keranjang
+    Route::delete('/keranjang/hapus/{id_keranjang}', [KeranjangController::class, 'destroy'])->name('keranjang.delete');
 
-    // Rute CRUD Produk
-    Route::resource('products', ProductController::class);
-
-    // Rute Manajemen Orderan
-    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
-
-    // Placeholder untuk Statistik & Customer (Agar tidak error jika diklik)
-    Route::get('statistics', function() { return "Halaman Statistik (Segera Hadir)"; })->name('statistics.index');
-    Route::get('customers', function() { return "Halaman Customer Service (Segera Hadir)"; })->name('customers.index');
+    // (Opsional) Checkout nanti bisa ditambahkan disini
+    // Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 });

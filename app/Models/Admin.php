@@ -3,31 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable; // <-- Ganti ini
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Authenticatable // <-- Ganti ini
+class Admin extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
 
-    protected $table = 'admin'; // <-- Tambahkan ini
-
-    public $timestamps = false;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $table = 'admin';
+    // ID standar (integer auto increment), jadi tidak perlu konfigurasi khusus
+    
     protected $fillable = [
         'username',
         'password',
     ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+    
+    // Sembunyikan password agar tidak ikut tertarik saat query JSON
     protected $hidden = [
         'password',
     ];
