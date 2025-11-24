@@ -7,7 +7,7 @@
 	<div class="row">
 		<div class="col-md-4">
 			<div class="thumbnail">
-                <img src="{{ asset('images/produk/' . $produk->image) }}" width="400">
+                <img src="{{ $produk->image }}" width="400">
 			</div>
 		</div>
 

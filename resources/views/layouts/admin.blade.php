@@ -24,7 +24,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="{{ route('admin.dashboard') }}">Home</a></li>
-					<li><a href="#">Produk</a></li>
+					<li><a href="{{ route('admin.produk') }}">Produk</a></li>
 					<li><a href="#">Customer</a></li>
 					<li><a href="#">Inventory</a></li>
 					<li><a href="#">Laporan</a></li>

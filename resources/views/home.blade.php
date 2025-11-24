@@ -20,7 +20,7 @@
         @foreach($products as $product)
 			<div class="col-sm-6 col-md-4">
 				<div class="thumbnail">
-                    <img src="{{ asset('images/produk/' . $product->image) }}" style="width: 100%; height: 250px; object-fit: cover;">
+                    <img src="{{ $product->image }}" style="width: 100%; height: 250px; object-fit: cover;">
 					<div class="caption">
 						<h3>{{ $product->nama }}</h3>
 						<h4>Rp.{{ number_format($product->harga) }}</h4>

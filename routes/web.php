@@ -11,6 +11,7 @@ use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminProdukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,5 +74,11 @@ Route::prefix('admin')->group(function () {
     // Halaman Dashboard (Pakai Middleware 'admin.auth')
     Route::middleware('admin.auth')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/produk', [AdminProdukController::class, 'index'])->name('admin.produk');
+        Route::get('/produk/tambah', [AdminProdukController::class, 'create'])->name('admin.produk.create');
+        Route::post('/produk/simpan', [AdminProdukController::class, 'store'])->name('admin.produk.store');
+        Route::get('/produk/edit/{kode_produk}', [AdminProdukController::class, 'edit'])->name('admin.produk.edit');
+        Route::put('/produk/update/{kode_produk}', [AdminProdukController::class, 'update'])->name('admin.produk.update');
+        Route::delete('/produk/hapus/{kode_produk}', [AdminProdukController::class, 'destroy'])->name('admin.produk.delete');
     });
 });
