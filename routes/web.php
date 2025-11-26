@@ -16,6 +16,7 @@ use App\Http\Controllers\AdminProduksiController;
 use App\Http\Controllers\AdminInventoryController;
 use App\Http\Controllers\AdminLaporanController;
 use App\Http\Controllers\AdminCustomerController;
+use App\Http\Controllers\HistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,9 @@ Route::group(['middleware' => 'web'], function () {
     
     // Halaman Sukses
     Route::get('/selesai/{invoice}', [CheckoutController::class, 'success'])->name('checkout.success');
+
+    // Riwayat Pesanan
+    Route::get('/riwayat', [HistoryController::class, 'index'])->name('history.index');
 });
 
 // ==========================================================
