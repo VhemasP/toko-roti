@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminProdukController;
 use App\Http\Controllers\AdminProduksiController;
 use App\Http\Controllers\AdminInventoryController;
+use App\Http\Controllers\AdminLaporanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,5 +89,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/inventory', [AdminInventoryController::class, 'index'])->name('admin.inventory');
         Route::get('/inventory/edit/{kode_bk}', [AdminInventoryController::class, 'edit'])->name('admin.inventory.edit');
         Route::put('/inventory/update/{kode_bk}', [AdminInventoryController::class, 'update'])->name('admin.inventory.update');
+        Route::get('/laporan/penjualan', [AdminLaporanController::class, 'penjualan'])->name('admin.laporan.penjualan');
     });
 });
