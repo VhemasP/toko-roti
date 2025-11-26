@@ -16,27 +16,29 @@ class CustomerAuthController extends Controller
     }
 
     // Proses Login (proses/login.php)
-    public function login(Request $request)
+public function login(Request $request)
     {
         // Validasi input
         $request->validate([
-            'username' => 'required',
+            'username' => 'required', // Kita tetap pakai nama 'username' untuk input field-nya
             'password' => 'required',
         ]);
 
-        // Cek manual karena struktur tabel custom
-        $customer = Customer::where('username', $request->username)->first();
+        // Deteksi apakah input yang dimasukkan adalah Email atau Username
+        $inputType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        // Cari customer berdasarkan tipe input yang terdeteksi (email atau username)
+        $customer = Customer::where($inputType, $request->username)->first();
 
         if ($customer && Hash::check($request->password, $customer->password)) {
             // Login sukses (Manual Login Session)
-            // Di Laravel modern biasanya pakai Guard, tapi ini cara sederhana:
             session(['kode_customer' => $customer->kode_customer]);
             session(['nama' => $customer->nama]);
             
             return redirect()->route('home');
         }
 
-        return back()->withErrors(['msg' => 'Username atau Password salah']);
+        return back()->withErrors(['msg' => 'Username/Email atau Password salah']);
     }
 
     // Tampilkan Form Register (register.php)
