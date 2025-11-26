@@ -44,6 +44,9 @@
                         <a href="{{ route('admin.produk.edit', $row->kode_produk) }}" class="btn btn-warning btn-sm">
                             <i class="glyphicon glyphicon-edit"></i> Edit
                         </a>
+                        <a href="{{ route('admin.bom.index', $row->kode_produk) }}" class="btn btn-info btn-sm">
+                            <i class="glyphicon glyphicon-list-alt"></i> Resep
+                        </a>
                         <form action="{{ route('admin.produk.delete', $row->kode_produk) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                             @csrf
                             @method('DELETE')

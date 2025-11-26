@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminInventoryController;
 use App\Http\Controllers\AdminLaporanController;
 use App\Http\Controllers\AdminCustomerController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\AdminBomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,5 +98,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/laporan/penjualan', [AdminLaporanController::class, 'penjualan'])->name('admin.laporan.penjualan');
         Route::get('/customer', [AdminCustomerController::class, 'index'])->name('admin.customer');
         Route::delete('/customer/hapus/{kode_customer}', [AdminCustomerController::class, 'destroy'])->name('admin.customer.delete');
+        Route::get('/produk/resep/{kode_produk}', [AdminBomController::class, 'index'])->name('admin.bom.index');
+        Route::post('/produk/resep/add', [AdminBomController::class, 'store'])->name('admin.bom.store');
+        Route::delete('/produk/resep/delete/{kode_bom}', [AdminBomController::class, 'destroy'])->name('admin.bom.delete');
     });
 });
