@@ -26,7 +26,7 @@
 					<li><a href="{{ route('admin.dashboard') }}">Home</a></li>
 					<li><a href="{{ route('admin.produk') }}">Produk</a></li>
 					<li><a href="#">Customer</a></li>
-					<li><a href="#">Inventory</a></li>
+					<li><a href="{{ route('admin.produksi') }}">Pesanan Masuk</a></li>
 					<li><a href="#">Laporan</a></li>
 					<li><a href="{{ route('admin.logout') }}">Logout</a></li>
 				</ul>

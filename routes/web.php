@@ -12,6 +12,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminProdukController;
+use App\Http\Controllers\AdminProduksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,5 +81,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/produk/edit/{kode_produk}', [AdminProdukController::class, 'edit'])->name('admin.produk.edit');
         Route::put('/produk/update/{kode_produk}', [AdminProdukController::class, 'update'])->name('admin.produk.update');
         Route::delete('/produk/hapus/{kode_produk}', [AdminProdukController::class, 'destroy'])->name('admin.produk.delete');
+        Route::get('/pesanan', [AdminProduksiController::class, 'index'])->name('admin.produksi');
+        Route::get('/pesanan/terima/{invoice}', [AdminProduksiController::class, 'terima'])->name('admin.produksi.terima');
+        Route::get('/pesanan/tolak/{invoice}', [AdminProduksiController::class, 'tolak'])->name('admin.produksi.tolak');
     });
 });
