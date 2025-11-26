@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminProdukController;
 use App\Http\Controllers\AdminProduksiController;
+use App\Http\Controllers\AdminInventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,5 +85,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/pesanan', [AdminProduksiController::class, 'index'])->name('admin.produksi');
         Route::get('/pesanan/terima/{invoice}', [AdminProduksiController::class, 'terima'])->name('admin.produksi.terima');
         Route::get('/pesanan/tolak/{invoice}', [AdminProduksiController::class, 'tolak'])->name('admin.produksi.tolak');
+        Route::get('/inventory', [AdminInventoryController::class, 'index'])->name('admin.inventory');
+        Route::get('/inventory/edit/{kode_bk}', [AdminInventoryController::class, 'edit'])->name('admin.inventory.edit');
+        Route::put('/inventory/update/{kode_bk}', [AdminInventoryController::class, 'update'])->name('admin.inventory.update');
     });
 });

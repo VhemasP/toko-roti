@@ -25,8 +25,8 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="{{ route('admin.dashboard') }}">Home</a></li>
 					<li><a href="{{ route('admin.produk') }}">Produk</a></li>
-					<li><a href="#">Customer</a></li>
 					<li><a href="{{ route('admin.produksi') }}">Pesanan Masuk</a></li>
+					<li><a href="{{ route('admin.inventory') }}">Inventory</a></li>
 					<li><a href="#">Laporan</a></li>
 					<li><a href="{{ route('admin.logout') }}">Logout</a></li>
 				</ul>
