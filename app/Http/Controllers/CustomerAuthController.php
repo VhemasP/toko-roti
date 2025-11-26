@@ -20,18 +20,15 @@ public function login(Request $request)
     {
         // Validasi input
         $request->validate([
-            'username' => 'required', // Kita tetap pakai nama 'username' untuk input field-nya
+            'username' => 'required',
             'password' => 'required',
         ]);
 
-        // Deteksi apakah input yang dimasukkan adalah Email atau Username
         $inputType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        // Cari customer berdasarkan tipe input yang terdeteksi (email atau username)
         $customer = Customer::where($inputType, $request->username)->first();
 
         if ($customer && Hash::check($request->password, $customer->password)) {
-            // Login sukses (Manual Login Session)
             session(['kode_customer' => $customer->kode_customer]);
             session(['nama' => $customer->nama]);
             

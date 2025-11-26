@@ -59,6 +59,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
     Route::post('/keranjang/add', [KeranjangController::class, 'store'])->name('keranjang.add');
     Route::delete('/keranjang/hapus/{id_keranjang}', [KeranjangController::class, 'destroy'])->name('keranjang.delete');
+    Route::put('/keranjang/update/{id_keranjang}', [KeranjangController::class, 'update'])->name('keranjang.update');
 
     // Checkout
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');

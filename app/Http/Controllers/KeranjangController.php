@@ -55,4 +55,19 @@ class KeranjangController extends Controller
         Keranjang::destroy($id_keranjang);
         return redirect()->back();
     }
+
+    // Update Jumlah (Qty) Keranjang
+    public function update(Request $request, $id_keranjang)
+    {
+        $request->validate([
+            'qty' => 'required|integer|min:1'
+        ]);
+        
+        $keranjang = Keranjang::where('id_keranjang', $id_keranjang)->firstOrFail();
+        
+        $keranjang->qty = $request->qty;
+        $keranjang->save();
+
+        return redirect()->back()->with('success', 'Jumlah berhasil diperbarui');
+    }
 }

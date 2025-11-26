@@ -26,7 +26,18 @@
 					<td>{{ $no++ }}</td>
 					<td>{{ $row->nama_produk }}</td>
 					<td>Rp.{{ number_format($row->harga) }}</td>
-					<td>{{ $row->qty }}</td>
+					<td>
+    					<form action="{{ route('keranjang.update', $row->id_keranjang) }}" method="POST">
+        				@csrf
+        				@method('PUT')
+        					<div class="input-group">
+            					<input type="number" name="qty" class="form-control text-center" value="{{ $row->qty }}" min="1" style="width: 70px;">
+            						<span class="input-group-btn">
+                						<button type="submit" class="btn btn-primary btn-sm">Update</button>
+            						</span>
+        					</div>
+    					</form>
+					</td>
 					<td>Rp.{{ number_format($subtotal) }}</td>
 					<td>
                         <form action="{{ route('keranjang.delete', $row->id_keranjang) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?');">
