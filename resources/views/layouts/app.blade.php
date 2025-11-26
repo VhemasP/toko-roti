@@ -53,7 +53,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i> {{ Session::get('nama') }} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Profile</a></li>
+                                <li><a href="{{ route('profile.index') }}">Profile</a></li>
                                 <li><a href="{{ route('history.index') }}">Riwayat Pesanan</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li>

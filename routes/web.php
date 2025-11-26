@@ -18,6 +18,7 @@ use App\Http\Controllers\AdminLaporanController;
 use App\Http\Controllers\AdminCustomerController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\AdminBomController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,10 @@ Route::group(['middleware' => 'web'], function () {
 
     // Riwayat Pesanan
     Route::get('/riwayat', [HistoryController::class, 'index'])->name('history.index');
+
+    // Profil Customer
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 // Halaman Utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
