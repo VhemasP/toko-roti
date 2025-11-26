@@ -41,7 +41,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="{{ route('home') }}">Home</a></li>
 					<li><a href="#">Produk</a></li>
-					<li><a href="#">About</a></li>
+					<li><a href="{{ route('about') }}">About</a></li>
                     
                     @if(Session::has('kode_customer'))
                         <li>

@@ -47,7 +47,7 @@ Route::middleware('guest')->group(function () {
 });
 
 // Logout Customer
-Route::post('/logout', [CustomerAuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [CustomerAuthController::class, 'logout'])->name('logout');
 
 
 // --- Fitur Belanja (Butuh Login) ---
@@ -69,6 +69,11 @@ Route::group(['middleware' => 'web'], function () {
     // Riwayat Pesanan
     Route::get('/riwayat', [HistoryController::class, 'index'])->name('history.index');
 });
+// Halaman Utama
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Halaman About (BARU)
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 // ==========================================================
 // 2. BAGIAN ADMIN

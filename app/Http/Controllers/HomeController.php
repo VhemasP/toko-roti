@@ -18,4 +18,10 @@ class HomeController extends Controller
 
         return view('home', compact('products'));
     }
+    
+    // Tambahkan ini di dalam class HomeController
+    public function about()
+    {
+        return view('about');
+    }
 }
