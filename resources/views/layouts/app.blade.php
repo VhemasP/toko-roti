@@ -40,7 +40,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="{{ route('home') }}">Home</a></li>
-					<li><a href="#">Produk</a></li>
+					<li><a href="{{ route('produk.index') }}">Produk</a></li>
 					<li><a href="{{ route('about') }}">About</a></li>
                     
                     @if(Session::has('kode_customer'))

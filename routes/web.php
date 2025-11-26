@@ -75,6 +75,15 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Halaman About (BARU)
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
+// Halaman Utama
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Halaman Produk (BARU)
+Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
+
+// Halaman About
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+
 // ==========================================================
 // 2. BAGIAN ADMIN
 // ==========================================================
