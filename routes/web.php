@@ -36,6 +36,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Detail Produk
 Route::get('/detail/{kode_produk}', [ProdukController::class, 'show'])->name('produk.detail');
 
+// Midtrans Payment Callback
+Route::post('/payment/callback', [CheckoutController::class, 'callback'])->name('midtrans.callback');
+
 // --- Autentikasi Customer (Guest) ---
 Route::middleware('guest')->group(function () {
     // Login
@@ -95,9 +98,6 @@ Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 
 // Halaman About
 Route::get('/about', [HomeController::class, 'about'])->name('about');
-
-// Midtrans Payment Callback
-Route::post('/payment/callback', [CheckoutController::class, 'callback'])->name('midtrans.callback');
 
 // ==========================================================
 // 2. BAGIAN ADMIN
