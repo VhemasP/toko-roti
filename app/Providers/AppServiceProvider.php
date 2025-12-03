@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use App\Models\Keranjang;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,5 +34,9 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('totalKeranjang', $totalKeranjang);
         });
+    if($this->app->environment('production') || str_contains(request()->url(), 'ngrok-free.app')) {
+            URL::forceScheme('https');
+        }
     }
+
 }

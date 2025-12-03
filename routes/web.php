@@ -74,6 +74,12 @@ Route::group(['middleware' => 'web'], function () {
     // Profil Customer
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Pembayaran Ulang
+    Route::get('/payment/repay/{invoice}', [CheckoutController::class, 'repay'])->name('payment.repay');
+
+    // Batalkan Pesanan
+    Route::get('/pesanan/batal/{invoice}', [HistoryController::class, 'batal'])->name('pesanan.batal');
 });
 // Halaman Utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -89,6 +95,9 @@ Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 
 // Halaman About
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+
+// Midtrans Payment Callback
+Route::post('/payment/callback', [CheckoutController::class, 'callback'])->name('midtrans.callback');
 
 // ==========================================================
 // 2. BAGIAN ADMIN

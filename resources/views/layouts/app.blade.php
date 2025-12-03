@@ -92,7 +92,7 @@
 				</div>
 				<div class="col-md-4">
 					<h5><b>Media Sosial</b></h5>
-                    <p><a href="#" style="color: #000">Facebook</a></p>
+                    <p><a href="https://www.facebook.com/?locale=id_ID" style="color: #000">Facebook</a></p>
                     <p><a href="#" style="color: #000">Instagram</a></p>
 				</div>
 			</div>
