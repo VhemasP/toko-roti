@@ -56,7 +56,6 @@ class KeranjangController extends Controller
         return redirect()->back();
     }
 
-    // Update Jumlah (Qty) Keranjang
     public function update(Request $request, $id_keranjang)
     {
         $request->validate([

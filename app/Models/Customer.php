@@ -9,13 +9,12 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $table = 'customer'; // Nama tabel lama
+    protected $table = 'customer';
     
     protected $primaryKey = 'kode_customer';
-    public $incrementing = false; // Karena ID bukan auto-increment integer
+    public $incrementing = false;
     protected $keyType = 'string';
 
-    // TAMBAHKAN BARIS INI (Matikan timestamps otomatis)
     public $timestamps = false; 
 
     protected $fillable = [

@@ -15,7 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin.auth' => \App\Http\Middleware\AdminAuth::class,
         ]);
     $middleware->validateCsrfTokens(except: [
-            'payment/callback', // Izinkan route ini diakses tanpa token CSRF
+            'payment/callback',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

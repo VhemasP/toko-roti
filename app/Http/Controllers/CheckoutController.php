@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Keranjang;
 use App\Models\Produksi;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Log; // Untuk logging
-// Tambahkan Import Midtrans
+use Illuminate\Support\Facades\Log;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Midtrans\Notification;
@@ -44,7 +43,6 @@ class CheckoutController extends Controller
         $kode_cs = Session::get('kode_customer');
         $keranjangs = Keranjang::where('kode_customer', $kode_cs)->get();
 
-        // Generate Invoice
         $lastOrder = Produksi::orderBy('id_order', 'desc')->first();
         $lastInvoice = $lastOrder ? $lastOrder->invoice : '';
         $noUrut = (int)substr($lastInvoice, 3); 
@@ -52,7 +50,6 @@ class CheckoutController extends Controller
 
         $totalBayar = 0;
 
-        // Simpan ke Database
         foreach ($keranjangs as $cart) {
             $totalBayar += $cart->harga * $cart->qty;
 
@@ -63,7 +60,7 @@ class CheckoutController extends Controller
                 'nama_produk' => $cart->nama_produk,
                 'qty' => $cart->qty,
                 'harga' => $cart->harga,
-                'status' => 'Menunggu Pembayaran', // [PENTING] Status Awal
+                'status' => 'Menunggu Pembayaran',
                 'tanggal' => date('Y-m-d'),
                 'provinsi' => $request->provinsi,
                 'kota' => $request->kota,
@@ -75,15 +72,13 @@ class CheckoutController extends Controller
             ]);
         }
 
-        // Hapus Keranjang
         Keranjang::where('kode_customer', $kode_cs)->delete();
 
-        // Konfigurasi Midtrans & Ambil Snap Token
         $this->configureMidtrans();
         
         $params = [
             'transaction_details' => [
-                'order_id' => $invoiceBaru . '-' . time(), // Order ID Unik
+                'order_id' => $invoiceBaru . '-' . time(),
                 'gross_amount' => (int) $totalBayar,
             ],
             'customer_details' => [
@@ -119,7 +114,7 @@ class CheckoutController extends Controller
 
         $params = [
             'transaction_details' => [
-                'order_id' => $invoice . '-' . time(), // Order ID Unik Baru
+                'order_id' => $invoice . '-' . time(),
                 'gross_amount' => (int) $totalBayar,
             ],
             'customer_details' => [
@@ -139,7 +134,6 @@ class CheckoutController extends Controller
     // 3. HALAMAN SUKSES (Update Status via Redirect)
     public function success($invoice)
     {
-        // Fitur ini mengupdate status jika user diarahkan kembali ke web setelah bayar
         $kode_cs = Session::get('kode_customer');
 
         Produksi::where('invoice', $invoice)
@@ -163,7 +157,6 @@ class CheckoutController extends Controller
             $transaction = $notif->transaction_status;
             $order_id = $notif->order_id;
             
-            // Ambil Invoice Asli (INV001-12345 -> INV001)
             $invoiceParts = explode('-', $order_id);
             $invoiceAsli = $invoiceParts[0];
 
@@ -188,7 +181,6 @@ class CheckoutController extends Controller
         }
     }
 
-    // Helper Konfigurasi
     private function configureMidtrans()
     {
         Config::$serverKey = config('services.midtrans.server_key');

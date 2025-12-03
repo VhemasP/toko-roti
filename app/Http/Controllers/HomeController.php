@@ -7,19 +7,14 @@ use App\Models\Produk; // <-- Penting: Agar bisa memanggil database
 
 class HomeController extends Controller
 {
-    /**
-     * Menampilkan Halaman Utama
-     */
     public function index()
     {
-        // Ambil semua data produk
         $products = Produk::all(); 
         
 
         return view('home', compact('products'));
     }
     
-    // Tambahkan ini di dalam class HomeController
     public function about()
     {
         return view('about');
