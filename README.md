@@ -13,7 +13,7 @@
 |NO| NAMA | NIM |
 |:-:|--------|--------|
 | 1 | [**Vhemas Dwi Agung Prasetyo**](https://github.com/VhemasP) | 24111814047 |
-| 2 | [**Mirza Azmina**](https://github.com/VhemasP) | 24111814058 |
+| 2 | [**Mirza Azmina**](https://github.com/mirzaazminaa) | 24111814058 |
 | 3 | [**Faiz Ahmad Dien Al-Ghifary**](https://github.com/Paizzy) | 24111814014 |
 
 ## Deskripsi Project
