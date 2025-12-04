@@ -17,17 +17,32 @@
 | 3 | [**Faiz Ahmad Dien Al-Ghifary**](https://github.com/Paizzy) | 24111814014 |
 
 ## Deskripsi Project
-Toko Roti BakeryNesa adalah aplikasi berbasis web yang dibuat menggunakan framework Laravel, bertujuan untuk membantu pengelolaan data toko roti seperti produk, stok, dan transaksi penjualan secara digital.
+Aplikasi ini dibuat menggunakan Laravel dan digunakan untuk mengelola inventaris, produk, resep produksi (BOM), transaksi penjualan, dan keranjang customer. Sistem dilengkapi fitur login admin, laporan penjualan, manajemen stok, serta konversi gambar produk menjadi Base64 agar lebih mudah dalam penyimpanan database.
 
 ## Fitur Utama
-- Login dan Logout Admin  
-- CRUD (Create, Read, Update, Delete) Data Roti  
-- Upload Gambar Produk  
-- Dashboard Admin  
-- Manajemen Database 
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Autentikasi Admin
+- Login
+- Session admin
+- Logout
+2. Manajemen Produk
+- Tambah produk + upload gambar Base64
+- Edit produk
+- Hapus produk
+- Auto-generate kode produk
+3. Sistem Keranjang Customer
+- Real-time jumlah item di keranjang (global)
+- View composer untuk semua halaman
+4. Manajemen Inventory
+- Edit stok bahan baku
+- Update harga, qty, satuan
+- Tanggal update otomatis
+5. BOM / Resep Produk
+- Tambah bahan baku ke resep
+- Hapus bahan dari resep
+- List resep per produk
+6. Laporan Penjualan / Produksi
+- Menampilkan laporan berdasarkan tanggal
+- Filter tanggal mulai & akhir
 
 ## License
-
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
